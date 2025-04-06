@@ -96,7 +96,7 @@ Only return json object nothing else
     state.ui_elements=json.loads(json_match.group(0))
     state.path1="image"
 
-
+    
     return state
 
 

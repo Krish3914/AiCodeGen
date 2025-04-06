@@ -59,6 +59,7 @@ def generate_angular_code(state: FrontendState) -> FrontendState:
     # 📌 Call LLM to generate Angular code
     cells = llm.invoke(prompt)
     json_match = re.search(r'\{.*\}', cells.content, re.DOTALL)
+    print(json_match)
     output_json = json.loads(json_match.group(0))
 
     # Extract JSON output   
