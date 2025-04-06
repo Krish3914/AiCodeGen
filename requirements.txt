@@ -1,0 +1,9 @@
+
+langchain
+docx2txt
+groq
+langchain_community
+langchain_groq
+langgraph
+pydantic
+
