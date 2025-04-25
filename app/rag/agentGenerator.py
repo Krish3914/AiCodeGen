@@ -2,7 +2,9 @@
 from app.core.config import llm
 from langchain_postgres import PGVector
 from langchain_postgres.vectorstores import PGVector
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 import re
 
 

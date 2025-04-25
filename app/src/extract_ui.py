@@ -16,7 +16,7 @@ def extract_ui(state: FrontendState) -> FrontendState:
     base64_image = state.path1
 
     client = Groq()
-    Image_prompt=""""Analyze the provided image and identify all UI components present. For each component, provide the following details:
+    image_prompt=""""Analyze the provided image and identify all UI components present. For each component, provide the following details:
 
 Component Type: Specify the type of UI component (e.g., button, text field, checkbox, dropdown menu, etc.).
 Text Content: If the component contains text, provide the text content.
@@ -27,12 +27,14 @@ State: If applicable, specify the state of the component (e.g., enabled, disable
 
 Ensure that all identified components are listed in a structured format for easy reference."""
 
-    chat_completion = client.chat.completions.create(
+
+    completion = client.chat.completions.create(
+        model="meta-llama/llama-4-maverick-17b-128e-instruct",
         messages=[
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": Image_prompt},
+                    {"type": "text", "text": image_prompt},
                     {
                         "type": "image_url",
                         "image_url": {
@@ -41,11 +43,10 @@ Ensure that all identified components are listed in a structured format for easy
                     },
                 ],
             }
-        ],
-        model="llama-3.2-11b-vision-preview",
+        ]
     )
 
-    ui_data=chat_completion.choices[0].message.content
+    ui_data=completion.choices[0].message.content
     cell_prompt=f"""You are an expert UI analyst. Convert the extracted UI elements into a structured JSON format that represents the component hierarchy. Ensure the JSON includes:
 - The type of component (e.g., button, input, text, dropdown, etc.).
 - The text inside the component (if applicable).
